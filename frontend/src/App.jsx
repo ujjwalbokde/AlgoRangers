@@ -7,8 +7,12 @@ import HomePage from './components/Home'
 import Navbar from './components/Navbar'
 import NotificationsPage from './components/Notification'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Register from './components/register'
+import Register from './components/Register'
 import Login from './components/Login'
+import Profile from './components/Profile'
+import AppointmentForm from './components/AppointmentForm'
+import GetStarted from './components/Getstarted'
+import ThankYou from './components/Thanku'
 
 function App() {
 
@@ -23,7 +27,11 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<AboutPage/>} />
           <Route path="/contact" element={<ContactPage/>} />
-          {/* <Route path="/service" element={<Servic/>} /> */}
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/start" element={<GetStarted/>} />
+          <Route path="/appointment" element={<AppointmentForm/>} />
+          <Route path="/thanks" element={<ThankYou/>} />
+
         </Routes>
         <Footer/>
       </div>

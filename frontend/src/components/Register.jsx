@@ -1,6 +1,7 @@
 // src/Register.js
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 const Register = () => {
   const [name, setName] = useState('');
@@ -9,12 +10,35 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('patient'); // Default role
   const [gender, setGender] = useState(''); // Gender state
-
-  const handleRegister = (e) => {
+  const Navigate=useNavigate();
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Add your registration logic here (e.g., API call)
-    console.log('Registering:', { name, email, mobile, password, role, gender });
+  
+    const user = { name, email, mobile, password, role, gender };
+  
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        // Handle success (e.g., store token, navigate to dashboard)
+        console.log('Registered successfully:', data);
+        Navigate("/login")
+      } else {
+        console.error('Error:', data.msg);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
 
   return (
     <div className="flex items-center justify-center h-screen">

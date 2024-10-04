@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import AboutPage from "./About";
 import ContactPage from "./Contact";
+import { Link,useNavigate } from "react-router-dom";
 const benefitsData = [
   {
     text: "Verified Caretakers",
@@ -22,7 +23,7 @@ const benefitsData = [
 ];
 const HomePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+const navigate=useNavigate();
   // Auto change benefit every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,6 +50,15 @@ const HomePage = () => {
       window.removeEventListener("hashchange", handleHashChange);
     };
   }, []);
+  const handleGetStarted = () => {
+    const isLoggedIn = Boolean(localStorage.getItem("token")); // Replace with your authentication logic
+
+    if (isLoggedIn) {
+      navigate("/start"); // Redirect to /start if logged in
+    } else {
+      navigate("/login"); // Redirect to login if not logged in
+    }
+  };
   return (
     <div>
       {/* Hero Section */}
@@ -74,7 +84,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <button className="bg-white text-blue-900 font-semibold py-2 px-6 rounded hover:bg-gray-100 transition">
+        <button  onClick={handleGetStarted} className="bg-white text-blue-900 font-semibold py-2 px-6 rounded hover:bg-gray-100 transition">
           Get Started!
         </button>
       </section>

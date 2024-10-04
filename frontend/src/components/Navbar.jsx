@@ -1,14 +1,24 @@
-// components/Navbar.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is authenticated (e.g., from localStorage or auth service)
+    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   const scrollToSection = (section) => {
     scroller.scrollTo(section, {
       smooth: true,
@@ -16,19 +26,65 @@ const Navbar = () => {
       duration: 500,
     });
   };
+
+  const handleLogout = () => {
+    // Clear authentication token (if stored in localStorage, cookies, etc.)
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/login'); // Redirect to the home page after logout
+  };
+
   return (
     <header className="bg-sky-700 text-white sticky z-50 top-0">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">CareConnect</h1>
         <nav>
           <ul className="hidden md:flex space-x-8 text-lg">
-            <li><Link to="/"onClick={()=>scrollToSection("home")}  className="hover:text-gray-300">Home</Link></li>
-            <li><Link to="#about" onClick={()=>scrollToSection("about")}  className="hover:text-gray-300">About</Link></li>
-            <li><Link to="/login" className="hover:text-gray-300">Login</Link></li>
-            <li><Link to="/register" className="hover:text-gray-300">Register</Link></li>
-            <li><Link to="#contact" onClick={()=>scrollToSection("contact")}  className="hover:text-gray-300">Contact</Link></li>
+            <li>
+              <Link to="/" onClick={() => scrollToSection("home")} className="hover:text-gray-300">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="#about" onClick={() => scrollToSection("about")} className="hover:text-gray-300">
+                About
+              </Link>
+            </li>
+            {isAuthenticated ? (
+              <>
+                <li>
+                  <Link to="/profile" className="hover:text-gray-300">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout} className="hover:text-gray-300">
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" className="hover:text-gray-300">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register" className="hover:text-gray-300">
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+            <li>
+              <Link to="#contact" onClick={() => scrollToSection("contact")} className="hover:text-gray-300">
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
+
         {/* Mobile menu toggle */}
         <div className="md:hidden">
           <button className="text-white focus:outline-none" onClick={toggleMenu}>
@@ -43,13 +99,48 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`} id="mobile-menu">
         <ul className="flex flex-col items-center space-y-4 py-4 text-lg">
-          <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
-          <li><Link to="#about" className="hover:text-gray-300">About</Link></li>
-          <li><Link to="/services" className="hover:text-gray-300">Services</Link></li>
-          <li><Link to="/search" className="hover:text-gray-300">Search Caretakers</Link></li>
-          <li><Link to="/login" className="hover:text-gray-300">Login</Link></li>
-          <li><Link to="/register" className="hover:text-gray-300">Register</Link></li>
-          <li><Link to="#contact" className="hover:text-gray-300">Contact</Link></li>
+          <li>
+            <Link to="/" className="hover:text-gray-300">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="#about" className="hover:text-gray-300">
+              About
+            </Link>
+          </li>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <Link to="/profile" className="hover:text-gray-300">
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button onClick={handleLogout} className="hover:text-gray-300">
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login" className="hover:text-gray-300">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/register" className="hover:text-gray-300">
+                  Register
+                </Link>
+              </li>
+            </>
+          )}
+          <li>
+            <Link to="#contact" className="hover:text-gray-300">
+              Contact
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
