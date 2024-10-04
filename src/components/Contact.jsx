@@ -1,92 +1,99 @@
-import React, { useState } from 'react';
+import React from 'react'
+import { useForm } from 'react-hook-form';
+const Contact = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-const ContactPage = () => {
-  const [contactDetails, setContactDetails] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    // Here, you can add logic to send the contact details to the backend or API.
-    alert('Your message has been submitted. We will get back to you shortly.');
+  const onSubmit = (data) => {
+    console.log(data.name,data.email,data.message);
+    alert("@ujjwalbokde will contact you soon .....")
+    reset()
   };
-
   return (
-    <div className="contact-page p-8 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">Contact Us</h1>
+    <div>
+    {/* contacts */}
+      <div className="bg-hero-simple bg-cover bg-no-repeat min-h-screen w-full pt-36 pb-4 text-black element" name="contact">
+        <h1 className="text-5xl font-bold mb-5 text-center text-white">Contact Us</h1>
+        
+        <div className="px-32 flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6">
+          <div className="p-16 mx-12 rounded-lg  w-full md:w-1/2">
+            <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-sm font-medium">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  {...register("name", { required: true })}
+                  className="mt-1 block w-full px-3 py-2 border border-sky-700 rounded-md shadow-sm bg-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm">Name is required</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  {...register("email", { required: true })}
+                  className="mt-1 block w-full px-3 py-2 border border-sky-700 rounded-md shadow-sm bg-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">Email is required</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="message" className="block text-sm font-medium">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  {...register("message", { required: true })}
+                  className="mt-1 block w-full px-3 py-2 border border-sky-700 rounded-md shadow-sm bg-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm">Message is required</p>
+                )}
+              </div>
 
-      <section className="general-contact bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold mb-4">General Inquiries</h2>
-        <p className="mb-6 text-gray-600">
-          If you have any questions about our services or need further information, 
-          please reach out to us using the form below.
-        </p>
+              <button
+                type="submit"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+              >
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-sky-700 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                  Send
+                </span>
+              </button>
+            </form>
+          </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block">
-            <span className="text-gray-700">Name:</span>
-            <input
-              type="text"
-              value={contactDetails.name}
-              onChange={(e) =>
-                setContactDetails({ ...contactDetails, name: e.target.value })
-              }
-              required
-              className="mt-1 block w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-500"
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Email:</span>
-            <input
-              type="email"
-              value={contactDetails.email}
-              onChange={(e) =>
-                setContactDetails({ ...contactDetails, email: e.target.value })
-              }
-              required
-              className="mt-1 block w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-500"
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Message:</span>
-            <textarea
-              value={contactDetails.message}
-              onChange={(e) =>
-                setContactDetails({ ...contactDetails, message: e.target.value })
-              }
-              required
-              className="mt-1 block w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-indigo-500"
-            />
-          </label>
-          <button
-            type="submit"
-            className="bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
-          >
-            Submit
-          </button>
-        </form>
+          <div className=" p-6 rounded-lg  w-full md:w-1/2 h-[440px]">
+            <h2 className="text-2xl font-bold mb-10">Contact Information</h2>
+            <p className="mb-5 border border-sky-700 w-[400px] p-5 text-center rounded-md flex" >
+              <strong><img src="/telephone.png" className="w-10 mr-5" alt="" /></strong> +91 9764624075
+            </p>
 
-        {submitted && (
-          <p className="mt-4 text-green-600">Thank you for contacting us. We will respond to your inquiry as soon as possible.</p>
-        )}
-      </section>
-
-      <section className="emergency-contact bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Emergency Contact</h2>
-        <p className="text-gray-600 mb-6">
-          If you require urgent care or assistance, please use the emergency contact below.
-        </p>
-        <div className="emergency-info text-gray-700">
-          <p><strong>Emergency Phone:</strong> +123 456 7890</p>
-          <p><strong>Email:</strong> emergency@healthcare.com</p>
+           
+            <p className="mb-5 border border-sky-700 w-[400px] p-5 text-center rounded-md flex">
+              <strong><img src="/gmail.png" className="w-10 mr-5" alt="" /></strong> careconnect@gmail.com
+            </p>
+          </div>
         </div>
-      </section>
-    </div>
-  );
-};
+      </div></div>
+  )
+}
 
-export default ContactPage;
+export default Contact
