@@ -7,6 +7,8 @@ import HomePage from './components/Home'
 import Navbar from './components/Navbar'
 import NotificationsPage from './components/Notification'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Register from './components/register'
+import Login from './components/Login'
 
 function App() {
 
@@ -17,8 +19,11 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage/>} />
-          {/* <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login/>} /> */}
+          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/contact" element={<ContactPage/>} />
+          {/* <Route path="/service" element={<Servic/>} /> */}
         </Routes>
         <Footer/>
       </div>

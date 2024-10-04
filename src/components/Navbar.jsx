@@ -3,17 +3,17 @@ import React from 'react';
 
 const Navbar = () => {
   return (
-    <header className="bg-gray-800 text-white">
+    <header className="bg-sky-700 text-white sticky z-50 top-0">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">CareConnect</h1>
         <nav>
           <ul className="hidden md:flex space-x-8 text-lg">
-            <li><a href="#" className="hover:text-gray-300">Home</a></li>
-            <li><a href="#" className="hover:text-gray-300">About</a></li>
-            <li><a href="#" className="hover:text-gray-300">Services</a></li>
-            <li><a href="#" className="hover:text-gray-300">Search Caretakers</a></li>
-            <li><a href="#" className="hover:text-gray-300">Login/Register</a></li>
-            <li><a href="#" className="hover:text-gray-300">Contact</a></li>
+            <li><a href="/" className="hover:text-gray-300">Home</a></li>
+            <li><a href="/about" className="hover:text-gray-300">About</a></li>
+            <li><a href="/service" className="hover:text-gray-300">Services</a></li>
+            <li><a href="/login" className="hover:text-gray-300">Login</a></li>
+            <li><a href="/register" className="hover:text-gray-300">Register</a></li>
+            <li><a href="/contact" className="hover:text-gray-300">Contact</a></li>
           </ul>
         </nav>
         {/* Mobile menu toggle */}
