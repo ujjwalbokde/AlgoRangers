@@ -20,10 +20,24 @@ const Login = () => {
     const data = await response.json();
     if (response.ok) {
       // Save the token
-      localStorage.setItem("token", data.token);
-      console.log("Token:", data.token);
+      const token = data.token;
+      localStorage.setItem("token", token);
+      console.log("Token:", token);
       console.log("Login successful");
-      window.location.href="/start";
+
+      // Use the role directly from the response
+      const userRole = data.role; // Now we can get the role from the response
+      console.log("User Role:", userRole); // Log user role
+
+      // Check the user role and redirect accordingly
+      if (userRole === "patient") {
+        window.location.href="/start"; // Redirect to /start for patients
+      } else if (userRole === "caretaker") {
+        window.location.href="/caretaker"; // Redirect to /caretaker for caretakers
+      } else {
+        console.error("Unknown user role");
+        setError("Unknown user role");
+      }
     } else {
       console.error(data.message);
       setError(data.message); // Set the error message to state

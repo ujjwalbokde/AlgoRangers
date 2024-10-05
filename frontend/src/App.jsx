@@ -13,7 +13,9 @@ import Profile from './components/Profile'
 import AppointmentForm from './components/AppointmentForm'
 import GetStarted from './components/Getstarted'
 import ThankYou from './components/Thanku'
-
+import Caretaker from './components/Caretaker'
+import VerifyCaretaker from './components/Verify'
+import YourAppointment from './components/YourAppointment'
 function App() {
 
   return (
@@ -31,6 +33,9 @@ function App() {
           <Route path="/start" element={<GetStarted/>} />
           <Route path="/appointment" element={<AppointmentForm/>} />
           <Route path="/thanks" element={<ThankYou/>} />
+          <Route path="/caretaker" element={<Caretaker/>} />
+          <Route path="/verify-caretaker" element={<VerifyCaretaker/>} />
+          <Route path="/yourAppointments" element={<YourAppointment/>} />
 
         </Routes>
         <Footer/>

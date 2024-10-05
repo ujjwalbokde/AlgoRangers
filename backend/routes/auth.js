@@ -50,7 +50,8 @@ router.post('/register', async (req, res) => {
 // @route    POST /login
 // @desc     Authenticate user & get token
 
-// Login route (simplified)
+// Login route (simplified)// @route    POST /login
+// @desc     Authenticate user & get token
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -72,13 +73,14 @@ router.post('/login', async (req, res) => {
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Return token in response
-    res.json({ token });
+    // Return token and user role in response
+    res.json({ token, role: user.role }); // Include the user role
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 router.get("/profile", auth, async (req, res) => {
     try {

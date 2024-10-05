@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <header className="bg-sky-700 text-white sticky z-50 top-0">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">CareConnect</h1>
+        <h1 className="text-2xl font-bold flex"><span><img src="icon.png" className='mr-3 w-8 h-8 rounded-full' alt="" /></span>CareConnect</h1>
         <nav>
           <ul className="hidden md:flex space-x-8 text-lg">
             <li>
@@ -46,7 +46,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="#about" onClick={() => scrollToSection("about")} className="hover:text-gray-300">
+              <Link to="/about" onClick={() => scrollToSection("about")} className="hover:text-gray-300">
                 About
               </Link>
             </li>
@@ -78,7 +78,7 @@ const Navbar = () => {
               </>
             )}
             <li>
-              <Link to="#contact" onClick={() => scrollToSection("contact")} className="hover:text-gray-300">
+              <Link to="/contact" onClick={() => scrollToSection("contact")} className="hover:text-gray-300">
                 Contact
               </Link>
             </li>
